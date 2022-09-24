@@ -14,10 +14,6 @@ datasource db {
     url      = env("DATABASE_URL")
 }
 
-model Example {
-    id String @id @default(cuid())
-}
-
 // Necessary for Next auth
 model Account {
     id                String  @id @default(cuid())
@@ -62,3 +58,5 @@ model VerificationToken {
 
     @@unique([identifier, token])
 }
+
+
