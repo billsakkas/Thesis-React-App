@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next";
 import React from "react";
 import Header from "../components/features/Header";
 import { TInputs, TSearchHeader } from "../components/features/SearchHeader";
+import Head from "../components/primitive/Head";
 
 type TSearch = { Inputs: TInputs };
 
@@ -19,9 +20,13 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
 
 const Search = ({ Inputs }: TSearch) => {
   return (
-    <div>
+    <>
+      <Head
+        title="SweetDeal - Search Real Estates"
+        description="This page provides a way to search for available real estates"
+      />
       <Header type="search" searchHeaderInputs={Inputs} />
-    </div>
+    </>
   );
 };
 
