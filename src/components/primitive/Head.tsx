@@ -11,7 +11,6 @@ const Head = ({ title, description }: THead) => {
     <NextHead>
       <title>{title}</title>
       <meta name="description" content={description} />
-      <link rel="icon" href="/favicon.ico" />
     </NextHead>
   );
 };
