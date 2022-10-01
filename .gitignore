@@ -38,3 +38,7 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# IDEs and editors
+.idea
+.vscode
