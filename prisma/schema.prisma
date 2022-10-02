@@ -50,7 +50,7 @@ model User {
   accounts          Account[]
   sessions          Session[]
   isTrusted         Boolean             @default(false)
-  realEstateListing RealEstateListing[]
+  realEstateListings RealEstateListing[]
   createdAt         DateTime            @default(now())
 }
 
