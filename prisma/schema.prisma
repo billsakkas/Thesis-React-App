@@ -50,7 +50,8 @@ model User {
   accounts          Account[]
   sessions          Session[]
   isTrusted         Boolean             @default(false)
-  RealEstateListing RealEstateListing[]
+  realEstateListing RealEstateListing[]
+  createdAt         DateTime            @default(now())
 }
 
 model VerificationToken {
@@ -62,14 +63,10 @@ model VerificationToken {
 }
 
 model RealEstateListing {
-  id          String   @id @default(cuid())
+  id          String               @id @default(cuid())
   title       String
   description String
   price       Int
-  address     String
-  city        String
-  state       String
-  zip         String
   bedrooms    Int
   bathrooms   Int
   sqmeters    Int
@@ -78,8 +75,24 @@ model RealEstateListing {
   type        String
   status      String
   images      String
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user        User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+  location    RealEstateLocation[]
+}
+
+model RealEstateLocation {
+  id        String            @id @default(cuid())
+  address   String
+  city      String
+  state     String
+  zip       String
+  country   String
+  latitude  Float
+  longitude Float
+  listing   RealEstateListing @relation(fields: [listingId], references: [id], onDelete: Cascade)
+  listingId String
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
 }
