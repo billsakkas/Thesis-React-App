@@ -72,7 +72,7 @@ model RealEstateListing {
   zip         String
   bedrooms    Int
   bathrooms   Int
-  sqft        Int
+  sqmeters    Int
   lotSize     Int
   yearBuilt   Int
   type        String
