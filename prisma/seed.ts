@@ -1,19 +1,23 @@
-const { PrismaClient } = require("@prisma/client");
+import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const { user } = require("./data");
 
-const load = async () => {
-  try {
-    await prisma.user.create({
-      data: user,
-    });
-    console.log("User created!");
-  } catch (e) {
-    console.log(e);
-  } finally {
-    await prisma.$disconnect();
-  }
+const main = async () => {
+  await prisma.user.upsert({
+    where: { email: user.email },
+    update: {},
+    create: user,
+  });
 };
 
-export {};
+main()
+  .then(async () => {
+    console.log("Success!!");
+    await prisma.$disconnect();
+  })
+  .catch(async (e) => {
+    console.error(e);
+    await prisma.$disconnect();
+    process.exit(1);
+  });

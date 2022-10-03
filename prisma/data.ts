@@ -1,23 +1,21 @@
 const { Prisma } = require("@prisma/client");
 
-const user = {
-  name: "John Doe",
-  email: "johnDoe@jd.com",
-  emailVerified: new Date(),
-  image: "https://placekitten.com/200/300",
-  isTrusted: true,
-  createdAt: new Date(),
-};
-
 const realEstateListings = [
   {
     title: "House for sale",
     description: "This is a house for sale",
     price: 100000,
-    address: "123 Main St",
-    city: "New York",
-    state: "NY",
-    zip: "10001",
+    location: {
+      create: {
+        address: "123 Main St",
+        city: "New York",
+        state: "NY",
+        zip: "10001",
+        country: "US",
+        latitude: 40.7128,
+        longitude: -74.006,
+      },
+    },
     bedrooms: 3,
     bathrooms: 2,
     sqmeters: 200,
@@ -25,21 +23,26 @@ const realEstateListings = [
     yearBuilt: 2000,
     type: "house",
     status: "active",
-    images: [
+    images: `"https://source.unsplash.com/random/200x300",
       "https://source.unsplash.com/random/200x300",
       "https://source.unsplash.com/random/200x300",
-      "https://source.unsplash.com/random/200x300",
-      "https://source.unsplash.com/random/200x300",
-    ],
+      "https://source.unsplash.com/random/200x300",`,
   },
   {
     title: "Great apartment for rent",
     description: "This is a great apartment for rent",
     price: 550,
-    address: "D. Nika 26",
-    city: "Katerini",
-    state: "Thessaloniki",
-    zip: "60100",
+    location: {
+      create: {
+        address: "D. Nika 26",
+        city: "Katerini",
+        state: "Thessaloniki",
+        zip: "60100",
+        country: "GR",
+        latitude: 40.2705,
+        longitude: 22.5039,
+      },
+    },
     bedrooms: 2,
     bathrooms: 1,
     sqmeters: 100,
@@ -47,12 +50,10 @@ const realEstateListings = [
     yearBuilt: 1990,
     type: "house",
     status: "active",
-    images: [
+    images: `"https://source.unsplash.com/random/200x300",
       "https://source.unsplash.com/random/200x300",
       "https://source.unsplash.com/random/200x300",
-      "https://source.unsplash.com/random/200x300",
-      "https://source.unsplash.com/random/200x300",
-    ],
+      "https://source.unsplash.com/random/200x300",`,
   },
   {
     title: "House with a pool",
@@ -76,13 +77,22 @@ const realEstateListings = [
     yearBuilt: 2005,
     type: "house",
     status: "active",
-    images: [
+    images: `"https://source.unsplash.com/random/200x300",
       "https://source.unsplash.com/random/200x300",
       "https://source.unsplash.com/random/200x300",
-      "https://source.unsplash.com/random/200x300",
-      "https://source.unsplash.com/random/200x300",
-    ],
+      "https://source.unsplash.com/random/200x300",`,
   },
 ];
 
+const user = {
+  name: "John Doe",
+  email: "johnDoe@jd.com",
+  emailVerified: new Date(),
+  image: "https://placekitten.com/200/300",
+  isTrusted: true,
+  createdAt: new Date(),
+  realEstateListings: {
+    create: realEstateListings,
+  },
+};
 export { user };
