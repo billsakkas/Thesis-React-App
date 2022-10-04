@@ -4,7 +4,7 @@ type TFooter = {};
 
 const Footer = ({}: TFooter) => {
   return (
-    <div className="mt-10 flex bg-orange-100 shadow-lg">
+    <div className="flex bg-orange-100 shadow-lg">
       <div className="flex flex-col gap-2 p-4">
         <h3 className="text-lg font-bold">
           SweetDeal -{" "}
