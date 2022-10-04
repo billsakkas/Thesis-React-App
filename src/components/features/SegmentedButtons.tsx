@@ -2,15 +2,17 @@ import React from "react";
 import SegmentedButton from "../primitive/SegmentedButton";
 
 type TSegmentedButtons = {
+  name: string;
   buttons: {
     id: number;
     title: string;
   }[];
   activeButton: string;
-  setActiveButton: (value: string) => void;
+  setActiveButton: (name: string, value: string) => void;
 };
 
 const SegmentedButtons = ({
+  name,
   buttons,
   activeButton,
   setActiveButton,
@@ -22,7 +24,7 @@ const SegmentedButtons = ({
           key={button.id}
           isActive={activeButton === `${button.id}`}
           title={button.title}
-          onClick={() => setActiveButton(`${button.id}`)}
+          onClick={() => setActiveButton(name, `${button.id}`)}
         />
       ))}
     </div>

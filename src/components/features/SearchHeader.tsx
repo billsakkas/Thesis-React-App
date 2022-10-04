@@ -44,7 +44,7 @@ export type TInputs = {
   sqmetersMin: string;
   sqmetersMax: string;
   realEstateType: string;
-  searchType: string;
+  transactionType: string;
 };
 
 const SearchHeader = ({ Inputs }: TSearchHeader) => {
@@ -56,22 +56,18 @@ const SearchHeader = ({ Inputs }: TSearchHeader) => {
       priceMax: "",
       sqmetersMin: "",
       sqmetersMax: "",
-      realEstateType: "",
-      searchType: "",
+      realEstateType: "0",
+      transactionType: "0",
     }
   );
-
-  const [searchType, setSearchType] = React.useState<string>(
-    Inputs?.searchType || "0"
-  );
-  const [realEstateType, setRealEstateType] = React.useState<string>(
-    Inputs?.realEstateType || "0"
-  );
-  console.log(`realEstateType ${realEstateType}`);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
     const value = e.target.value;
+    setSearchInputs((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleButtonClick = (name: string, value: string) => {
     setSearchInputs((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -81,8 +77,6 @@ const SearchHeader = ({ Inputs }: TSearchHeader) => {
       pathname: "/search",
       query: {
         ...searchInputs,
-        searchType,
-        realEstateType,
       },
     });
   };
@@ -97,17 +91,20 @@ const SearchHeader = ({ Inputs }: TSearchHeader) => {
       </div>
       <div className="mt-4 flex flex-col gap-4 px-8">
         <SegmentedButtons
+          name="transactionType"
           buttons={segmentedButtons}
-          activeButton={searchType}
-          setActiveButton={setSearchType}
+          activeButton={searchInputs["transactionType"]}
+          setActiveButton={handleButtonClick}
         />
         <div className="flex flex-row items-center justify-center gap-2">
           {realEstateTypes.map((button) => (
             <CircularButton
               key={button.id}
               title={button.title}
-              isActive={`${button.id}` === realEstateType}
-              onClick={() => setRealEstateType(`${button.id}`)}
+              isActive={`${button.id}` === searchInputs["realEstateType"]}
+              onClick={() =>
+                handleButtonClick("realEstateType", `${button.id}`)
+              }
             />
           ))}
         </div>
