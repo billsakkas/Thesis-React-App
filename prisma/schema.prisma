@@ -72,8 +72,8 @@ model RealEstateListing {
   sqmeters        Int
   lotSize         Int
   yearBuilt       Int
-  type            String
-  transactionType String
+  type            Int
+  transactionType Int
   status          String
   images          String
   user            User                 @relation(fields: [userId], references: [id], onDelete: Cascade)
