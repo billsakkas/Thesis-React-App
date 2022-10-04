@@ -1,4 +1,3 @@
-import { GetServerSideProps } from "next";
 import { useRouter } from "next/router";
 import React from "react";
 import CircularButton from "../primitive/CircularButton";
@@ -40,10 +39,10 @@ const realEstateTypes = [
 
 export type TInputs = {
   location: string;
-  startingPrice: string;
-  endingPrice: string;
-  startingArea: string;
-  endingArea: string;
+  priceMin: string;
+  priceMax: string;
+  sqmetersMin: string;
+  sqmetersMax: string;
   realEstateType: string;
   searchType: string;
 };
@@ -53,10 +52,10 @@ const SearchHeader = ({ Inputs }: TSearchHeader) => {
   const [searchInputs, setSearchInputs] = React.useState<TInputs>(
     Inputs || {
       location: "",
-      startingPrice: "",
-      endingPrice: "",
-      startingArea: "",
-      endingArea: "",
+      priceMin: "",
+      priceMax: "",
+      sqmetersMin: "",
+      sqmetersMax: "",
       realEstateType: "",
       searchType: "",
     }
@@ -134,11 +133,11 @@ const SearchHeader = ({ Inputs }: TSearchHeader) => {
               <input
                 className="h-full w-full"
                 type="number"
-                name="startingPrice"
-                id="startingPrice"
+                name="priceMin"
+                id="priceMin"
                 placeholder="Starting price"
                 onChange={handleChange}
-                value={searchInputs["startingPrice"]}
+                value={searchInputs["priceMin"]}
               />
             </div>
             <div className="flex w-1/2 items-center gap-1 pl-2">
@@ -146,11 +145,11 @@ const SearchHeader = ({ Inputs }: TSearchHeader) => {
               <input
                 className="h-full w-full"
                 type="number"
-                name="endingPrice"
-                id="endingPrice"
+                name="priceMax"
+                id="priceMax"
                 placeholder="Ending price"
                 onChange={handleChange}
-                value={searchInputs["endingPrice"]}
+                value={searchInputs["priceMax"]}
               />
             </div>
           </div>
@@ -160,11 +159,11 @@ const SearchHeader = ({ Inputs }: TSearchHeader) => {
               <input
                 className="h-full w-full"
                 type="number"
-                name="startingArea"
-                id="startingArea"
+                name="sqmetersMin"
+                id="sqmetersMin"
                 placeholder="Starting m2"
                 onChange={handleChange}
-                value={searchInputs["startingArea"]}
+                value={searchInputs["sqmetersMin"]}
               />
             </div>
             <div className="flex w-1/2 items-center gap-1 pl-2">
@@ -172,11 +171,11 @@ const SearchHeader = ({ Inputs }: TSearchHeader) => {
               <input
                 className="h-full w-full"
                 type="number"
-                name="endingArea"
-                id="endingArea"
+                name="sqmetersMax"
+                id="sqmetersMax"
                 placeholder="Ending m2"
                 onChange={handleChange}
-                value={searchInputs["endingArea"]}
+                value={searchInputs["sqmetersMax"]}
               />
             </div>
           </div>
@@ -187,7 +186,7 @@ const SearchHeader = ({ Inputs }: TSearchHeader) => {
         >
           Search
         </button>
-        <h3>type: {typeof searchInputs["startingPrice"]}</h3>
+        <h3>type: {typeof searchInputs["priceMin"]}</h3>
       </div>
     </form>
   );
