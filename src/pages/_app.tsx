@@ -20,6 +20,11 @@ const MyApp: AppType = ({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
       <SessionProvider session={session}>
+        <div className="hidden h-14 items-center justify-center bg-red-400 sm:flex">
+          <span className="rounded-2xl bg-white px-3 py-1">
+            ❌ Only optimized for mobile
+          </span>
+        </div>
         <Component {...pageProps} />
       </SessionProvider>
     </>
