@@ -21,7 +21,7 @@ const MapSideBarEstate = ({
   stars,
 }: TMapSideBarEstate) => {
   return (
-    <div className="over relative h-32">
+    <div className="relative h-32">
       <div className="relative z-50 flex h-full w-full items-end rounded">
         <div className="flex h-1/3 w-full justify-between rounded-b-2xl bg-gradient-to-t from-black px-2 pb-2">
           <div className="w-4/6">
@@ -29,7 +29,7 @@ const MapSideBarEstate = ({
             <p className="text-xs text-white">⭐{stars}</p>
           </div>
           <div className="flex items-center">
-            <p className="text-xs font-semibold">{price} €</p>
+            <p className="text-xs font-semibold text-white">{price} €</p>
           </div>
         </div>
       </div>
