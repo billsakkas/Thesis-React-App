@@ -109,11 +109,8 @@ const SearchHeader = ({ Inputs }: TSearchHeader) => {
           ))}
         </div>
         <div className="h-fit divide-y overflow-hidden rounded-lg bg-white shadow-sm">
-          <div className="flex h-12 flex-row items-center justify-start gap-1">
-            <img
-              className="h-7"
-              src="https://img.icons8.com/ios-glyphs/30/000000/marker--v1.png"
-            />
+          <div className="flex h-12 flex-row items-center justify-start gap-1 pl-2">
+            <span>📍</span>
             <input
               className="h-full grow"
               type="text"
@@ -126,7 +123,7 @@ const SearchHeader = ({ Inputs }: TSearchHeader) => {
           </div>
           <div className="flex h-12 flex-row divide-x">
             <div className="flex w-1/2 items-center gap-1 pl-2">
-              <span>$</span>
+              <span>💰</span>
               <input
                 className="h-full w-full"
                 type="number"
@@ -138,7 +135,7 @@ const SearchHeader = ({ Inputs }: TSearchHeader) => {
               />
             </div>
             <div className="flex w-1/2 items-center gap-1 pl-2">
-              <span>$</span>
+              <span>💰</span>
               <input
                 className="h-full w-full"
                 type="number"
@@ -152,7 +149,7 @@ const SearchHeader = ({ Inputs }: TSearchHeader) => {
           </div>
           <div className="flex h-12 w-full divide-x">
             <div className="flex w-1/2 items-center gap-1 pl-2">
-              <span>m2</span>
+              <span>🌍</span>
               <input
                 className="h-full w-full"
                 type="number"
@@ -164,7 +161,7 @@ const SearchHeader = ({ Inputs }: TSearchHeader) => {
               />
             </div>
             <div className="flex w-1/2 items-center gap-1 pl-2">
-              <span>m2</span>
+              <span>🌍</span>
               <input
                 className="h-full w-full"
                 type="number"
@@ -181,9 +178,8 @@ const SearchHeader = ({ Inputs }: TSearchHeader) => {
           type="submit"
           className="h-10 rounded-lg bg-orange-400 text-white shadow-lg shadow-orange-300"
         >
-          Search
+          🔍 Search
         </button>
-        <h3>type: {typeof searchInputs["priceMin"]}</h3>
       </div>
     </form>
   );
