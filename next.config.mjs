@@ -21,6 +21,6 @@ export default defineNextConfig({
     defaultLocale: "en",
   },
   images: {
-    domains: ["https://images.unsplash.com", "picsum.photos"],
+    domains: ["images.unsplash.com", "picsum.photos", "source.unsplash.com"],
   },
 });
