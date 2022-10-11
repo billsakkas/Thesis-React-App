@@ -1,39 +1,72 @@
-import { GetServerSideProps } from "next";
 import React from "react";
+import { GetServerSideProps } from "next";
+import { Prisma, PrismaClient } from "@prisma/client";
+
+import { TInputs } from "../components/features/SearchHeader";
 import Footer from "../components/features/Footer";
 import Header from "../components/features/Header";
-import { TInputs } from "../components/features/SearchHeader";
+
 import Head from "../components/primitive/Head";
+import Card from "../components/primitive/Card";
+
 import DangerIcon from "../components/SVGs/DangerIcon";
-import { PrismaClient, RealEstateListing } from "@prisma/client";
+import { useRouter } from "next/router";
+import { RealEstateWithLocation } from "../../prisma/types";
 
 const prisma = new PrismaClient();
 
 type TSearch = {
   Inputs: TInputs;
-  RealEstates: RealEstateListing[];
+  RealEstates: [];
+};
+
+type TMain = {
+  RealEstates: RealEstateWithLocation[];
+};
+
+const createFiltersFromInputs = (inputs: TInputs) => {
+  const array = [];
+
+  // These are mandatory and if missing we throw an error
+  if (!inputs.location) throw new Error("Location is mandatory");
+  if (!inputs.transactionType) throw new Error("Transaction type is mandatory");
+  if (!inputs.realEstateType) throw new Error("Real estate type is mandatory");
+
+  array.push({ location: { is: { address: { contains: inputs.location } } } });
+  array.push({ transactionType: { equals: parseInt(inputs.transactionType) } });
+  array.push({ type: { equals: parseInt(inputs.realEstateType) } });
+
+  // These are optional
+  if (inputs.priceMin)
+    array.push({ price: { gte: parseInt(inputs.priceMin) } });
+  if (inputs.priceMax)
+    array.push({ price: { lte: parseInt(inputs.priceMax) } });
+  if (inputs.sqmetersMin)
+    array.push({ sqmeters: { gte: parseInt(inputs.sqmetersMin) } });
+  if (inputs.sqmetersMax)
+    array.push({ sqmeters: { lte: parseInt(inputs.sqmetersMax) } });
+
+  return array;
 };
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const { query } = context;
-  const { ...inputs } = query as TInputs;
-  console.log(`inputs ${JSON.stringify(inputs)}`);
+  // Extract the inputs from the query
+  const { ...inputs } = context.query as TInputs;
+
+  // Create the filters from the inputs
+  const filters = createFiltersFromInputs(inputs);
+
+  const location: Prisma.RealEstateListingInclude = {
+    location: true,
+  };
+
+  // TODO: Add pagination
   let realEstates = await prisma.realEstateListing.findMany({
-    where: {
-      AND: [
-        { location: { some: { address: { contains: inputs.location } } } },
-        { price: { gte: parseInt(inputs.priceMin) } },
-        { price: { lte: parseInt(inputs.priceMax) } },
-        { sqmeters: { gte: parseInt(inputs.sqmetersMin) } },
-        { sqmeters: { lte: parseInt(inputs.sqmetersMax) } },
-        { type: { equals: parseInt(inputs.realEstateType) } },
-        { transactionType: { equals: parseInt(inputs.transactionType) } },
-      ],
-    },
+    where: { AND: filters },
+    include: location,
   });
 
-  console.log(`realEstates ${JSON.stringify(realEstates)}`);
-
+  // This is a workaround for the dates, as they are not being serialized by NextJS.
   realEstates = JSON.parse(JSON.stringify(realEstates));
 
   return {
@@ -44,11 +77,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   };
 };
 
-type TMain = {
-  RealEstates: RealEstateListing[];
-};
-
 const Main = ({ RealEstates }: TMain) => {
+  const router = useRouter();
   const NoData = () => {
     return (
       <div className="flex h-64 flex-col items-center justify-center">
@@ -60,16 +90,34 @@ const Main = ({ RealEstates }: TMain) => {
     );
   };
 
-  if (RealEstates.length > 0)
-    return (
-      <>
-        {RealEstates.map((realEstate) => {
-          return <div key={realEstate.id}>{realEstate.id}</div>;
-        })}
-      </>
-    );
+  // If there are no real estates, we render the NoData component
+  if (RealEstates.length < 1) return <NoData />;
 
-  return <NoData />;
+  // Otherwise, we render them
+  return (
+    <div className="flex flex-col items-center justify-center gap-2 p-4">
+      <h3 className="self-start pl-8 text-lg font-medium">Listings:</h3>
+      {RealEstates.map((realEstate) => {
+        const price = `💶 ${realEstate.price.toLocaleString("gr", {
+          currency: "EUR",
+          style: "decimal",
+        })}`;
+        return (
+          <div
+            className="rounded-xl shadow-lg shadow-gray-400"
+            onClick={() => router.push(`/listings/${realEstate.id}`)}
+          >
+            <Card
+              title={realEstate.title}
+              subtitle={`📍${realEstate.location!.address}`}
+              description={price}
+              image="https://source.unsplash.com/random/300x200"
+            />
+          </div>
+        );
+      })}
+    </div>
+  );
 };
 
 const Search = ({ Inputs, RealEstates }: TSearch) => {
