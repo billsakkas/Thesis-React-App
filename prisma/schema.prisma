@@ -80,7 +80,7 @@ model RealEstateListing {
   userId          String
   createdAt       DateTime             @default(now())
   updatedAt       DateTime             @updatedAt
-  location        RealEstateLocation[]
+  location        RealEstateLocation?
 }
 
 model RealEstateLocation {
@@ -92,8 +92,8 @@ model RealEstateLocation {
   country   String
   latitude  Float
   longitude Float
-  listing   RealEstateListing @relation(fields: [listingId], references: [id], onDelete: Cascade)
-  listingId String
+  listing   RealEstateListing @relation(fields: [listingId], references: [id])
+  listingId String            @unique
   createdAt DateTime          @default(now())
   updatedAt DateTime          @updatedAt
 }
