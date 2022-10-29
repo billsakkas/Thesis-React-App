@@ -1,5 +1,3 @@
-const { Prisma } = require("@prisma/client");
-
 const realEstateListings = [
   {
     title: "House for sale",
@@ -126,4 +124,5 @@ const user = {
     create: realEstateListings,
   },
 };
+
 export { user };
