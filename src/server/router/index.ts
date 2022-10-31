@@ -4,10 +4,11 @@ import superjson from "superjson";
 
 import { exampleRouter } from "./example";
 import { protectedExampleRouter } from "./protected-example-router";
+import { contactFormRouter } from "./contactForm";
 
 export const appRouter = createRouter()
   .transformer(superjson)
-  .merge("example.", exampleRouter)
+  .merge("contact.", contactFormRouter)
   .merge("auth.", protectedExampleRouter);
 
 // export type definition of API
