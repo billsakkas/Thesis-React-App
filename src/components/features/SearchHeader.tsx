@@ -82,7 +82,7 @@ const SearchHeader = ({ Inputs }: TSearchHeader) => {
   };
 
   return (
-    <form className="mb-8" onSubmit={handleSubmit}>
+    <form className="mx-auto mb-8" onSubmit={handleSubmit}>
       <div className="flex flex-row items-center justify-center gap-2">
         <h2 className="text-center text-xl font-semibold">
           Find your perfect home
