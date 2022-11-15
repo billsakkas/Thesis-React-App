@@ -104,7 +104,8 @@ const Main = ({ RealEstates }: TMain) => {
         })}`;
         return (
           <div
-            className="rounded-xl shadow-lg shadow-gray-400"
+            key={realEstate.id}
+            className="rounded-xl shadow-lg shadow-gray-400 duration-300 hover:cursor-pointer hover:shadow-gray-500"
             onClick={() => router.push(`/listings/${realEstate.id}`)}
           >
             <Card
