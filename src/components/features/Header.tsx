@@ -1,5 +1,7 @@
+import Link from "next/link";
 import React from "react";
-import SearchHeader, { TInputs, TSearchHeader } from "./SearchHeader";
+import HamburgerMenu from "../primitive/HamburgerMenu";
+import SearchHeader, { TInputs } from "./SearchHeader";
 
 type THeader = {
   type?: "search";
@@ -8,13 +10,17 @@ type THeader = {
 
 const Header = ({ type, searchHeaderInputs }: THeader) => {
   return (
-    <nav className="flex flex-col gap-8 bg-orange-100 py-2">
+    <nav className="flex flex-col gap-8 bg-orange-100 py-2" id="nav">
       <div className="flex items-center justify-between px-2">
-        <div className="flex items-center gap-2">
-          <span className="text-2xl">🏘️</span>
-          <h1 className="text-lg font-bold">SweetDeal</h1>
-        </div>
-        <span className="text-2xl">🥪</span>
+        <Link href="/">
+          <a>
+            <div className="flex items-center gap-2">
+              <span className="text-2xl">🏘️</span>
+              <h1 className="text-lg font-bold">SweetDeal</h1>
+            </div>
+          </a>
+        </Link>
+        <HamburgerMenu />
       </div>
       {type && type === "search" && (
         <SearchHeader Inputs={searchHeaderInputs} />
