@@ -6,12 +6,18 @@ type TIndex = {};
 
 const Main = () => {
   return (
-    <div className="mb-10 flex flex-col gap-8">
-      <h3 className="pt-6 pl-6 text-xl font-bold">Just for you...</h3>
-      <div className="mx-6 h-52 rounded-xl bg-gray-400 shadow-lg"></div>
-      <div className="mx-6 h-52 rounded-xl bg-gray-400 shadow-lg"></div>
-      <div className="mx-6 h-52 rounded-xl bg-gray-400 shadow-lg"></div>
-    </div>
+    <>
+      <h3 className="mb-10 pt-6 pl-6 text-xl font-bold">Just for you...</h3>
+      <div className="mb-10 flex w-screen flex-row flex-wrap items-center justify-center gap-8 2xl:container 2xl:mx-auto">
+        <div className="h-52 w-80 rounded-xl bg-gray-400 shadow-lg"></div>
+        <div className="h-52 w-80 rounded-xl bg-gray-400 shadow-lg"></div>
+        <div className="h-52 w-80 rounded-xl bg-gray-400 shadow-lg"></div>
+        <div className="h-52 w-80 rounded-xl bg-gray-400 shadow-lg"></div>
+        <div className="h-52 w-80 rounded-xl bg-gray-400 shadow-lg"></div>
+        <div className="h-52 w-80 rounded-xl bg-gray-400 shadow-lg"></div>
+        <div className="h-52 w-80 rounded-xl bg-gray-400 shadow-lg"></div>
+      </div>
+    </>
   );
 };
 
